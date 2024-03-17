@@ -1,22 +1,23 @@
-pipeline {
-    agent any
+node {
+    def mvnHome
+    def GIT_REPO = "https://github.com/nirkoren/devopscon.git"
+    def buildCMD = "mvn clean install -Pci"
 
-    tools {
-        maven "M3"
+    stage("Preparation") { 
+        println "Cloning git repository..."
+        git branch: "main", url: GIT_REPO
+        mvnHome = tool 'M3'
     }
-    stages {
-        stage('Build') {
-            steps {
-                println 'Cloning git repository...'
-                git 'https://github.com/nirkoren/devopscon.git'
-                println 'Starting the build...'
-		sh "mvn clean install -Pci"
-            }
-            post {
-                success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                }
-            }
+    stage('Build & Deploy') {
+        println "Starting build..."
+        if (isUnix()) {
+            sh buildCMD
+        } else {
+            bat(buildCMD)
         }
+        
+    }
+    stage('Results') {
+        junit '**/target/surefire-reports/TEST-*.xml'
     }
 }

@@ -1,20 +1,19 @@
 package org.nirkoren.maven.demo;
 
-import static org.junit.Assert.fail;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.nirkoren.maven.demo.TomcatPropsHandler;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class HealthTest {
 
 	private static String appurl;
 
-	@BeforeClass
+	@BeforeAll
 	public static void setUpBeforeClass() throws Exception {
 		appurl = TomcatPropsHandler.getAppurl();
 	}
@@ -29,8 +28,8 @@ public class HealthTest {
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			connection.connect();
-			int code = connection.getResponseCode();
-			Assert.assertEquals(200, code);
+			int errCode = connection.getResponseCode();
+			assertEquals(200, errCode);
 		} catch (Exception e) {
 			fail();
 		}

@@ -1,7 +1,7 @@
 node {
     def mvnHome
     def GIT_REPO = "https://github.com/nirkoren/devopscon.git"
-    def buildCMD = "mvn clean install -Pci"
+   
 
     stage("Preparation") { 
         println "Cloning git repository..."
@@ -10,6 +10,7 @@ node {
     }
 
     stage('Build & Deploy') {
+        def buildCMD = "${mvnHome}/bin/mvn clean install -Pci"
         println "Starting build..."
         if (isUnix()) {
             sh buildCMD

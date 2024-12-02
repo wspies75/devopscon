@@ -4,7 +4,7 @@ node {
 
     stage("Preparation") { 
         println "Cloning git repository..."
-        git branch: "main", url: https://github.com/wspies75/devopscon.git
+        git branch: "main", url: "https://github.com/wspies75/devopscon.git"
         mvnHome = tool 'M3'
     }
 

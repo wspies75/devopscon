@@ -1,10 +1,10 @@
 node {
     def mvnHome
-    def GIT_REPO = "https://github.com/nirkoren/devopscon.git"
+    def GIT_REPO = "https://github.com/wspies75/devopscon.git"
 
     stage("Preparation") { 
         println "Cloning git repository..."
-        git branch: "main", url: "https://github.com/wspies75/devopscon.git"
+        git branch: "main", url: GIT_REPO
         mvnHome = tool 'M3'
     }
 

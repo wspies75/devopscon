@@ -1,7 +1,6 @@
 node {
     def mvnHome
     def GIT_REPO = "https://github.com/nirkoren/devopscon.git"
-   
 
     stage("Preparation") { 
         println "Cloning git repository..."
